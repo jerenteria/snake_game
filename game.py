@@ -51,17 +51,7 @@ def run_game():
             # and y coordinate as the second argument, width as third argument and height as fourth argument
             pygame.draw.rect(screen, (0, 255, 0), (square[0], square[1], 10, 10))
 
-            # if direction is right 
-            # if direction == 'right':
-            #     # add 10 to x coordinate of snake_pos making it move right
-            #     snake_pos[0] += 10
-            # elif direction == 'left':
-            #     snake_pos[0] -= 10
-            # elif direction == 'up':
-            #     snake_pos[1] -= 10
-            # elif direction == 'down':
-            #     snake_pos[1] += 10
-
+            if direction is right 
             if direction == 'right':
                 # add 10 to x coordinate of snake_pos making it move right
                 snake_pos[0] += 10
