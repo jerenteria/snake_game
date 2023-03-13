@@ -12,8 +12,6 @@ pygame.display.set_caption("Snake Game!")
 # Set background color
 bg_color = (0, 0, 0)
 
-food_pos = [0, 0]
-food_spawn = True
 
 def run_game():
     # snake_pos = [250, 75]
@@ -21,6 +19,9 @@ def run_game():
 
     # snake_body = [[200, 75]]
     snake_body=[[200,70], [200-10, 70], [200-(2*10),70]]
+
+    food_pos = [0, 0]
+    food_spawn = True
 
     direction = 'right'
 
@@ -67,31 +68,33 @@ def run_game():
                 snake_pos[1] += 10
 
             snake_body.append(list(snake_pos))
-            snake_body.pop(0)
+            
         
-        # check if x coordinate of snake is smaller than 0, if yes than snake has crossed left side of screen
-        if snake_pos[0] <= 0 or snake_pos[0] >= WIN_X:
-            sys.exit()
+            # check if x coordinate of snake is smaller than 0, if yes than snake has crossed left side of screen
+            if snake_pos[0] <= 0 or snake_pos[0] >= WIN_X:
+                sys.exit()
 
-        if snake_pos[1] <= 0 or snake_pos[1] >= WIN_Y:
-            sys.exit()
+            if snake_pos[1] <= 0 or snake_pos[1] >= WIN_Y:
+                sys.exit()
 
-        if snake_pos[0]+10 <=0 or snake_pos[0] >= WIN_X:
-            sys.exit()
-        if snake_pos[1]+10 <=0 or snake_pos[1] >= WIN_Y:
-            sys.exit()
+            if snake_pos[0]+10 <=0 or snake_pos[0] >= WIN_X:
+                sys.exit()
+            if snake_pos[1]+10 <=0 or snake_pos[1] >= WIN_Y:
+                sys.exit()
 
 
-        # draw fruit on screen
-        if food_spawn:
-            # generate random pos for food, x coordinate is going to be from range 40 to screen_width - 40 not starting from 0
-            # b/c fruit can spawn too close to boundaries(same logic for y coordinate)
-            food_pos = [random.randrange(40, WIN_X-40), random.randrange(40, WIN_Y-40)]
-            food_spawn = False
-        pygame.draw.rect(screen, (255, 0, 0), (food_pos[0], food_pos[1],10 ,10))
+            # draw fruit on screen
+            if food_spawn:
+                # generate random pos for food, x coordinate is going to be from range 40 to screen_width - 40 not starting from 0
+                # b/c fruit can spawn too close to boundaries(same logic for y coordinate)
+                food_pos = [random.randrange(40, WIN_X-40), random.randrange(40, WIN_Y-40)]
+                food_spawn = False
+            pygame.draw.rect(screen, (255, 0, 0), (food_pos[0], food_pos[1],10 ,10))
 
-        if pygame.Rect(snake_pos[0],snake_pos[1],10,10).colliderect(pygame.Rect(food_pos[0],food_pos[1],10,10)):
-            food_spawn=True
+            if pygame.Rect(snake_pos[0],snake_pos[1],10,10).colliderect(pygame.Rect(food_pos[0],food_pos[1],10,10)):
+                food_spawn = True
+            else:
+                snake_body.pop(0)
 
         pygame.display.update()
         CLOCK.tick(10)
